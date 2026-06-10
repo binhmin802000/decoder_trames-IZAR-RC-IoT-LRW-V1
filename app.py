@@ -12,12 +12,12 @@ st.markdown("Outil de qualification.Cette première version décode **le payload
 
 with st.expander("💡 Informations sur différents types de trames"):
     st.markdown(
-    """
-- **DS40_OQ** (index minuit + nightline): `cette trame contient notamment : l’index de minuit, la nightline, les micro-alarmes, la persistence de débit, 8 valeurs de consommation quart d’heure, le qmin/qmax, le backflow et les températures min/max.`
-- **DS40_I** (consommations horaires): `Cette trame contient les consommations horaires de H-1 à H-16, ainsi que les températures min/max`
-- **DS40_2S** (statistiques): `Cette trame contient les statistiques radio/LoRaWAN : énergie consommée, puissance TX, data rate, compteurs uplink/downlink, retries, ratio de transmissions non applicatives, canaux actifs, temps de réception radio, etc`
-- **DS40_E** (événements) : `Cette trame contient les causes d’alarme, les alarmes présentes, les valeurs métier au moment de l’événement (Qmin/Qmax, backflow, persistence, index courant à t0, etc.).`
-- **DS40_O_OMS4** (trame d'installation) **si le payload est déjà en clair** : `La trame d’installation (port 20) contient notamment le timestamp, le pulse weight (via VIF), l’index courant, et les alarmes spécifiques`
+    """ 
+- **DS40_OQ** (index minuit + nightline). **Mode de sécurité 8**: `cette trame contient notamment : l’index de minuit, la nightline, les micro-alarmes, la persistence de débit, 8 valeurs de consommation quart d’heure, le qmin/qmax, le backflow et les températures min/max.`
+- **DS40_I** (consommations horaires). **Mode de sécurité 8**: `Cette trame contient les consommations horaires de H-1 à H-16, ainsi que les températures min/max`
+- **DS40_2S** (statistiques). **Mode de sécurité 8**: `Cette trame contient les statistiques radio/LoRaWAN : énergie consommée, puissance TX, data rate, compteurs uplink/downlink, retries, ratio de transmissions non applicatives, canaux actifs, temps de réception radio, etc`
+- **DS40_E** (événements). **Mode de sécurité 8** : `Cette trame contient les causes d’alarme, les alarmes présentes, les valeurs métier au moment de l’événement (Qmin/Qmax, backflow, persistence, index courant à t0, etc.).`
+- **DS40_O_OMS4** (trame d'installation). **Mode de sécurité 7** **si le payload est déjà en clair** : `La trame d’installation (port 20) contient notamment le timestamp, le pulse weight (via VIF), l’index courant, et les alarmes spécifiques`
 
 > ⚠️ Important : d'après la spécification, **tout le payload est chiffré**, et les **clés de déchiffrement** sont fournies dans un autre document / transfert de clés. Sans ce fichier de clés, on ne peut pas garantir le décodage d'une **trame LoRaWAN chiffrée brute**. Cette V1 est donc conçue pour décoder le **payload applicatif en clair**.
 """
@@ -31,7 +31,7 @@ Collez une chaîne hexadécimale, par exemple :
 - sans espaces : `41240000AABBCCDD`
 - avec préfixe : `0x41240000AABBCCDD`
 
-Indique le FPort (Optionel):
+Indication du port FPort (Optionel):
 
 - pour les trames périodiques (**DS40_OQ**, **DS40_I**, **DS40_2S**) : `183` 
 - pour les trames événement (**DS40_E**) : `184` 
@@ -69,7 +69,7 @@ if st.button("Décoder", type="primary"):
         st.dataframe(payload_to_table(result), use_container_width=True, hide_index=True)
 
         if show_raw:
-            st.subheader("Détails techniques")
+            st.subheader("Détails techniques JSON ")
             st.json(result)
 
     except Exception as e:
