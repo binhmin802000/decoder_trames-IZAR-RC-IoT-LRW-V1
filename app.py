@@ -6,14 +6,20 @@ from decoder import (
     FRAME_TYPE_NAMES, pulse_weight_for_meter_key
 )
 
-st.set_page_config(page_title="Décodeur IZAR LRZ102", layout="wide")
 
-st.title("Décodeur local IZAR RC IoT LRW wMB – LRZ102 `@MyVision`")
+st.set_page_config(page_title="Décodeur IZAR LRZ102"
+    ,page_icon="📡"
+    , layout="wide")
+
+
+st.title("📡 Décodeur de trames LoRaWAN IZAR RC IoT DIEHL V1 `@MyVision`")
+st.markdown("Outil de qualification.Cette première version décode **le payload applicatif déjà déchiffré** des trames métier")
+
+
+
 with st.expander("💡 Informations sur différents types de trames"):
     st.markdown(
     """
-Cette première version décode **le payload applicatif déjà déchiffré** des trames métier :
-
 - **DS40_OQ** (index minuit + nightline): `cette trame contient notamment : l’index de minuit, la nightline, les micro-alarmes, la persistence de débit, 8 valeurs de consommation quart d’heure, le qmin/qmax, le backflow et les températures min/max.`
 - **DS40_I** (consommations horaires): `Cette trame contient les consommations horaires de H-1 à H-16, ainsi que les températures min/max`
 - **DS40_2S** (statistiques): `Cette trame contient les statistiques radio/LoRaWAN : énergie consommée, puissance TX, data rate, compteurs uplink/downlink, retries, ratio de transmissions non applicatives, canaux actifs, temps de réception radio, etc`
@@ -46,7 +52,7 @@ Vous pouvez aussi indiquer le **FPort** pour aider à distinguer certaines trame
 col1, col2 = st.columns([2, 1])
 with col1:
     hex_input = st.text_area(
-        "Payload applicatif (hex)",
+        "**Payload applicatif (hex)**",
         height=180,
         placeholder="Exemple : 41 24 00 00 00 00 01 00 ..."
     )
@@ -80,3 +86,4 @@ if st.button("Décoder", type="primary"):
             "Vérifiez que vous avez collé le **payload applicatif déjà déchiffré**. "
             "Si vous avez collé une trame LoRaWAN chiffrée brute, il faudra les clés et la règle de déchiffrement associée."
         )
+
