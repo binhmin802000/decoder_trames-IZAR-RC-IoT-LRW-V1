@@ -1,21 +1,14 @@
-
 import json
 import streamlit as st
 from decoder import (
     clean_hex, bytes_to_hex, decode_payload, payload_to_table,
     FRAME_TYPE_NAMES, pulse_weight_for_meter_key
 )
-
-
 st.set_page_config(page_title="Décodeur IZAR LRZ102"
     ,page_icon="📡"
     , layout="wide")
-
-
 st.title("📡 Décodeur de trames LoRaWAN IZAR RC IoT DIEHL V1 `@MyVision`")
 st.markdown("Outil de qualification.Cette première version décode **le payload applicatif déjà déchiffré** des trames métier")
-
-
 
 with st.expander("💡 Informations sur différents types de trames"):
     st.markdown(
@@ -29,7 +22,6 @@ with st.expander("💡 Informations sur différents types de trames"):
 > ⚠️ Important : d'après la spécification, **tout le payload est chiffré**, et les **clés de déchiffrement** sont fournies dans un autre document / transfert de clés. Sans ce fichier de clés, on ne peut pas garantir le décodage d'une **trame LoRaWAN chiffrée brute**. Cette V1 est donc conçue pour décoder le **payload applicatif en clair**.
 """
 )
-
 with st.expander("💡 Format attendu et Port FP"):
     st.markdown(
         """
@@ -39,7 +31,7 @@ Collez une chaîne hexadécimale, par exemple :
 - sans espaces : `41240000AABBCCDD`
 - avec préfixe : `0x41240000AABBCCDD`
 
-Indique le FPort :
+Indique le FPort (Optionel):
 
 - pour les trames périodiques (**DS40_OQ**, **DS40_I**, **DS40_2S**) : `183` 
 - pour les trames événement (**DS40_E**) : `184` 
