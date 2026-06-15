@@ -5,7 +5,6 @@ from pathlib import Path
 from decoder import clean_hex, decode_payload, payload_to_table, pulse_weight_for_meter_key
 from security import decrypt_mode8_frame, derive_fields_from_wmbus_address
 
-
 # ============================================================
 # Authentification simple du portail
 # ============================================================
